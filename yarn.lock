@@ -1051,6 +1051,16 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@expo-google-fonts/anton@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/anton/-/anton-0.2.0.tgz#a64a871c9633c5c199b0be72c5be495cf1e707af"
+  integrity sha512-li5HeRyg/Fh+tKWWEEysxZ+xtZyFk5KcNRIbqIhgHOEWJgadkXnAbwd06sU5SqJ7Z341JR+8vq0agziTcRLgXQ==
+
+"@expo-google-fonts/rajdhani@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/rajdhani/-/rajdhani-0.2.0.tgz#9b31e454e0f0fe46dfd5d44bdf602811b120898e"
+  integrity sha512-vMGoNuJdOMyrvw+GwD4xlvKKBumXmK7IebN5RbDyyP+luZw6v5tAJAZhRSDc3ed55Oukaa0NCW144lw2hc+4eg==
+
 "@expo/config-plugins@4.0.15", "@expo/config-plugins@^4.0.2":
   version "4.0.15"
   resolved "https://registry.yarnpkg.com/@expo/config-plugins/-/config-plugins-4.0.15.tgz#cc170a0cf890973b6491cf357540e9955296019c"
@@ -2479,6 +2489,11 @@ expo-keep-awake@~10.0.1:
   version "10.0.1"
   resolved "https://registry.yarnpkg.com/expo-keep-awake/-/expo-keep-awake-10.0.1.tgz#9f1176216c41eee20843c8232acfdca2bc32d334"
   integrity sha512-kcBtoDGkm3RRe6BpKDvR7gof/ErajEia38u92pRvNRctdh+p8AFO7GQuiipyg3iMfhcCFVTCIV7h3tuA0g/yDw==
+
+expo-linear-gradient@~11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/expo-linear-gradient/-/expo-linear-gradient-11.0.0.tgz#88605aad93ee73c32110e83e89ef17bb13c330b5"
+  integrity sha512-OVzmsz5y+NxX4XvtQhKAQCdakVaAwFB0ajYlcT50zl1MKU33LrBa8hxSe3qo8CCGSZSfjdfzGvyZ1cf12BXI9Q==
 
 expo-modules-autolinking@0.5.2:
   version "0.5.2"
