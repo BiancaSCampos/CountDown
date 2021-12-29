@@ -22,7 +22,7 @@ export default function App() {
 
   useEffect(() => {
     if (isRunning) {
-      clearInterval(currentInterval);
+      if(currentInterval) clearInterval(+currentInterval);
 
       let interval = setInterval(() => {
         clearInterval(interval);
