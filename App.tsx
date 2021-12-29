@@ -13,6 +13,7 @@ export default function App() {
   const [minutes, setMinutes] = useState(25);
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [currentInterval, setCurrentInterval] = useState<NodeJS.Timer | null>(null);
 
   let [fontsLoaded] = useFonts({
     Anton_400Regular,
@@ -21,6 +22,8 @@ export default function App() {
 
   useEffect(() => {
     if (isRunning) {
+      clearInterval(currentInterval);
+
       let interval = setInterval(() => {
         clearInterval(interval);
 
@@ -39,6 +42,8 @@ export default function App() {
           setSeconds(seconds - 1);
         }
       }, 1000);
+
+      setCurrentInterval(interval);
     }
   }, [isRunning, seconds]);
 
