@@ -1,19 +1,19 @@
-import { useFonts, Anton_400Regular } from "@expo-google-fonts/anton";
-import { Rajdhani_400Regular } from "@expo-google-fonts/rajdhani";
-import { LinearGradient } from "expo-linear-gradient";
-import { StatusBar } from "expo-status-bar";
-import { useEffect, useRef, useState } from "react";
-import {
-  Button,
-  StatusBar as StatusBarReact,
-  TouchableOpacity,
-} from "react-native";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import {useEffect, useState} from 'react';
+import {StatusBar as StatusBarReact, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, Text, View} from 'react-native';
+
+import {useFonts, Anton_400Regular} from '@expo-google-fonts/anton';
+import {Rajdhani_400Regular} from '@expo-google-fonts/rajdhani';
+import {LinearGradient} from 'expo-linear-gradient';
+import {StatusBar} from 'expo-status-bar';
+
+import colors from './constants/colors';
 
 export default function App() {
   const [minutes, setMinutes] = useState(25);
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [currentInterval, setCurrentInterval] = useState<NodeJS.Timer | null>(null);
 
   let [fontsLoaded] = useFonts({
     Anton_400Regular,
@@ -21,25 +21,31 @@ export default function App() {
   });
 
   useEffect(() => {
-    let interval = setInterval(() => {
-      clearInterval(interval);
+    if (isRunning) {
+      if(currentInterval) clearInterval(+currentInterval);
 
-      if (seconds === 0) {
-        if (minutes !== 0) {
-          setSeconds(59);
-          setMinutes(minutes - 1);
+      let interval = setInterval(() => {
+        clearInterval(interval);
+
+        if (seconds === 0) {
+          if (minutes !== 0) {
+            setSeconds(59);
+            setMinutes(minutes - 1);
+          } else {
+            let minutes = 25;
+            let seconds = 59;
+
+            setSeconds(seconds);
+            setMinutes(minutes);
+          }
         } else {
-          let minutes = 25;
-          let seconds = 59;
-
-          setSeconds(seconds);
-          setMinutes(minutes);
+          setSeconds(seconds - 1);
         }
-      } else {
-        setSeconds(seconds - 1);
-      }
-    }, 1000);
-  }, [seconds]);
+      }, 1000);
+
+      setCurrentInterval(interval);
+    }
+  }, [isRunning, seconds]);
 
   if (!fontsLoaded) {
     return null;
@@ -50,8 +56,8 @@ export default function App() {
 
   return (
     <>
-      <StatusBar style="auto" backgroundColor="#FFCDB2" />
-      <LinearGradient colors={["#FFCDB1", "#EF8888"]} style={styles.container}>
+      <StatusBar style="auto" backgroundColor={colors.primary} />
+      <LinearGradient colors={[colors.primary, colors.secondary]} style={styles.container}>
         <View style={styles.containerIntern}>
           <Text style={styles.text}>
             {timerMinutes}:{timerSeconds}
@@ -61,8 +67,7 @@ export default function App() {
             style={styles.button}
             onPress={() => {
               setIsRunning(true);
-            }}
-          >
+            }}>
             <Text style={styles.textButton}>Start</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -70,8 +75,7 @@ export default function App() {
             onPress={() => {
               setMinutes(25);
               setSeconds(0);
-            }}
-          >
+            }}>
             <Text style={styles.textButton}>Reset</Text>
           </TouchableOpacity>
         </View>
@@ -83,45 +87,45 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignContent: "center",
-    paddingTop: Platform.OS === "android" ? StatusBarReact.currentHeight : 0,
+    alignContent: 'center',
+    paddingTop: Platform.OS === 'android' ? StatusBarReact.currentHeight : 0,
     paddingHorizontal: 20,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   containerIntern: {
-    minHeight: "50%",
-    maxHeight: "50%",
-    maxWidth: "95%",
-    minWidth: "95%",
-    backgroundColor: "rgba(90,90, 90,0.5)",
+    minHeight: '50%',
+    maxHeight: '50%',
+    maxWidth: '95%',
+    minWidth: '95%',
+    backgroundColor: 'rgba(90,90, 90,0.5)',
     borderRadius: 7,
-    alignItems: "center",
+    alignItems: 'center',
   },
 
   text: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 110,
-    color: "white",
+    color: 'white',
     fontFamily: `Anton_400Regular`,
-    textShadowOffset: { width: 3, height: 8 },
-    textShadowColor: "#81655F",
+    textShadowOffset: {width: 3, height: 8},
+    textShadowColor: '#81655F',
     textShadowRadius: 10,
   },
 
   button: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 7,
     elevation: 10,
     marginTop: 10,
-    width: "30%",
+    width: '30%',
     padding: 15,
-    alignItems: "center",
+    alignItems: 'center',
   },
 
   textButton: {
-    color: "black",
+    color: 'black',
     fontSize: 20,
     fontFamily: `Rajdhani_400Regular`,
   },
