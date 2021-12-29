@@ -21,25 +21,27 @@ export default function App() {
   });
 
   useEffect(() => {
-    let interval = setInterval(() => {
-      clearInterval(interval);
+    if (isRunning) {
+      let interval = setInterval(() => {
+        clearInterval(interval);
 
-      if (seconds === 0) {
-        if (minutes !== 0) {
-          setSeconds(59);
-          setMinutes(minutes - 1);
+        if (seconds === 0) {
+          if (minutes !== 0) {
+            setSeconds(59);
+            setMinutes(minutes - 1);
+          } else {
+            let minutes = 25;
+            let seconds = 59;
+
+            setSeconds(seconds);
+            setMinutes(minutes);
+          }
         } else {
-          let minutes = 25;
-          let seconds = 59;
-
-          setSeconds(seconds);
-          setMinutes(minutes);
+          setSeconds(seconds - 1);
         }
-      } else {
-        setSeconds(seconds - 1);
-      }
-    }, 1000);
-  }, [seconds]);
+      }, 1000);
+    }
+  }, [isRunning, seconds]);
 
   if (!fontsLoaded) {
     return null;
